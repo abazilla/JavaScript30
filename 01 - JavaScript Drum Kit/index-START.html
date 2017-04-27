@@ -57,10 +57,31 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
+  <script>
 
-</script>
 
+  function playSound(e) {
+    //querySelector below gets the <audio></audio> element with an attribute data-key with a value of the keypress (eg 76 when "L" is pressed)
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    //querySelector below gets the <div></div> element with an attribute data-key with a value of the keypress (eg 76 when "L" is pressed)
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if(!audio) return; //stops the function straight up
+    audio.currentTime = 0; //restart time to 0
+    audio.play();
+    key.classList.add('playing')
+  }
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return; // skip if it is not a transform
+    this.classList.remove('playing')
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+  window.addEventListener('keydown', playSound);
+
+  </script>
 
 </body>
 </html>
