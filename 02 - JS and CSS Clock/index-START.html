@@ -62,12 +62,55 @@
       background:black;
       position: absolute;
       top:50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05;
+      transition-timing-function: cubic-bezier(0, 1.63, 0.31, 1.16);
+    }
+
+    .hour-hand {
+      background: red;
     }
 
   </style>
 
   <script>
 
+const secHand = document.querySelector('.second-hand')
+const minHand = document.querySelector('.min-hand')
+const hrHand = document.querySelector('.hour-hand')
+
+//  what does `` do in js?
+// `` Allows you to put in ${} to let you embed variables into html/css code
+
+function convertToDegMinSec(time) {
+  deg = ((time / 60) * 360) + 90;
+  return deg;
+}
+
+function convertToDegHr(time) {
+  deg = ((time / 24) * 360) + 6;
+  return deg;
+}
+
+function setDate() {
+  const now = new Date();
+  const seconds = now.getSeconds();
+  const minutes = now.getMinutes();
+  const hours = now.getHours();
+
+  console.log(`${hours}:${minutes}:${seconds}`)
+
+  const sDeg = convertToDegMinSec(seconds);
+  const mDeg = convertToDegMinSec(minutes);
+  const hDeg = convertToDegHr(hours);
+
+  secHand.style.transform = `rotate(${sDeg}deg)`;
+  minHand.style.transform = `rotate(${mDeg}deg)`;
+  hrHand.style.transform = `rotate(${hDeg}deg)`;
+}
+
+setInterval(setDate, 1000);
 
   </script>
 </body>
