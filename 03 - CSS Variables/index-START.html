@@ -9,9 +9,11 @@
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
+    <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
     <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
     <label for="blur">Blur:</label>
+    <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
     <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
 
     <label for="base">Base Color</label>
@@ -25,6 +27,22 @@
     /*
       misc styles, nothing to do with CSS variables
     */
+
+    :root {
+      --base: yellow;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    h1 {
+      color: var(--base);
+    }
 
     body {
       text-align: center;
@@ -45,6 +63,21 @@
   </style>
 
   <script>
+  //put .controls input to select only input under the controls div
+  //this doesn't create an array but it creates a nodelist, which has less functions than an array. You can however convert this to an array.
+  const inputs = document.querySelectorAll('.controls input')
+
+  function handleUpdate() {
+    //this.dataset will return an object containing all the data-xxxxxx things within the selected element.
+  const suffix = this.dataset.sizing || '';
+  //document.documentElement.style selects the variable
+  //this.name returns the name of the element, which is the same name as the variable -- this seems important to change variables.
+  document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+  }
+  //new function to JS
+  inputs.forEach(input => input.addEventListener('change', handleUpdate));
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
