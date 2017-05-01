@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Scoped CSS Variables and JS</title>
-</head>
-<body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <head>
+    <meta charset="UTF-8">
+    <title>Scoped CSS Variables and JS</title>
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
-  <div class="controls">
-    <label for="spacing">Spacing:</label>
-    <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
+      <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
-    <label for="blur">Blur:</label>
-    <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+      <label for="blur">Blur:</label>
+      <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
+      <input id="blur" type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
 
-    <label for="base">Base Color</label>
-    <input id="base" type="color" name="base" value="#ffc600">
-  </div>
+      <label for="rotation">Rotation:</label>
+      <!-- data-name is a prefix that you can make. you just have to add data- to the front of any word -->
+      <input id="rotation" type="range" name="rotation" min="0" max="360" value="0" data-sizing="deg">
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600">
+    </div>
 
-  <style>
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+    <style>
 
     /*
-      misc styles, nothing to do with CSS variables
+    misc styles, nothing to do with CSS variables
     */
 
     :root {
       --base: yellow;
       --spacing: 10px;
-      --blur: 10px;
+      --blur: 0px;
+      --rotation: 0deg;
     }
 
     img {
       padding: var(--spacing);
       background: var(--base);
       filter: blur(var(--blur));
+      transform: rotate(var(--rotation));
     }
 
     h1 {
@@ -60,25 +66,27 @@
     input {
       width:100px;
     }
-  </style>
+    </style>
 
-  <script>
-  //put .controls input to select only input under the controls div
-  //this doesn't create an array but it creates a nodelist, which has less functions than an array. You can however convert this to an array.
-  const inputs = document.querySelectorAll('.controls input')
+    <script>
+    //put .controls input to select only input under the controls div
+    //this doesn't create an array but it creates a nodelist, which has less functions than an array. You can however convert this to an array.
+    const inputs = document.querySelectorAll('.controls input')
 
-  function handleUpdate() {
-    //this.dataset will return an object containing all the data-xxxxxx things within the selected element.
-  const suffix = this.dataset.sizing || '';
-  //document.documentElement.style selects the variable
-  //this.name returns the name of the element, which is the same name as the variable -- this seems important to change variables.
-  document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
-  }
-  //new function to JS
-  inputs.forEach(input => input.addEventListener('change', handleUpdate));
-  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    function handleUpdate() {
+      //this.dataset will return an object containing all the data-xxxxxx things within the selected element.
+      const suffix = this.dataset.sizing || '';
 
-  </script>
+      //document.documentElement.style selects the variable
+      //this.name returns the name of the element, which is the same name as the variable -- this is important to change variables, or else it won't work in this case.
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
 
-</body>
+    //forEach is a function new to JS
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+    </script>
+
+  </body>
 </html>

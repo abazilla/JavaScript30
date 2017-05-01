@@ -12,6 +12,12 @@ A really fun thing to play around with. I'd like to attempt to change the sounds
 
 ### 2. JS & CSS clock
 
-I think I understand what `` lets you do - it allows you to embad JS into html/css elements, sort of like how #{} works in ruby.
+I think I understand what " ``` `` ``` " lets you do - it allows you to embad JS into html/css elements, sort of like how #{} works in ruby.
 
   *** Extra: *** Refactored the conversion of time to degrees into 2 new functions (1 for hours and minutes, and 1 for hours).
+
+### 3. CSS Variables
+
+Cool to know that CSS has the ability to use variables (and can be manipulatied by JS). Datasets are looking more and more useful to use too.
+
+  *** Extra: *** Added another variable to change the rotation of the image, to help further my understanding of how this works.
