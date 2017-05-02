@@ -25,3 +25,9 @@ Cool to know that CSS has the ability to use variables (and can be manipulatied 
 ### 4. Array Cardio Day
 
 This one was quite difficult - a lot of new things learnt, from arrow functions to lots of different array methods. I've added to do lists so that I can refer to my teacher for further explanation when I am at school. * Hint: use a todo searcher to search through your open project to find the things you need to re-learn *
+
+### 5. Flex Panel Gallery
+
+A nice little demonstration of flexbox, but will be hard to remember all the flexbox intricacies. Some incredibly useful things:
+1. ` .class > * ` which will target the children of the class.
+2. ` .class > *:first/last-child` which targets the first/last child element of the class
