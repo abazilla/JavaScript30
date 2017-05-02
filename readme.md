@@ -21,3 +21,7 @@ I think I understand what " ``` `` ``` " lets you do - it allows you to embad JS
 Cool to know that CSS has the ability to use variables (and can be manipulatied by JS). Datasets are looking more and more useful to use too.
 
   *** Extra: *** Added another variable to change the rotation of the image, to help further my understanding of how this works.
+
+### 4. Array Cardio Day
+
+This one was quite difficult - a lot of new things learnt, from arrow functions to lots of different array methods. I've added to do lists so that I can refer to my teacher for further explanation when I am at school. * Hint: use a todo searcher to search through your open project to find the things you need to re-learn *
