@@ -17,6 +17,60 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+//We need to retrive a json file and convert it into an array
+const cities = [];
+
+//TODO - understand what this below does here.
+//blob can be any name.
+//fetch gets data, but what it returns is a "Promise" of something in the future.
+//"then" returns a "response" which is yet to have a type of object. .json() returns another promise
+fetch(endpoint)
+  .then(blob => blob.json())
+  .then(data => cities.push(...data))
+
+//This is the function to search through the array cities to find a match of city or state
+//We use filter to filter out each element the array
+//We have to use an object called RegExp to filter since it lets you search globally ie anywhere in the string that matches rather than the full word ('g') and for case insensitive text ('i')
+function findMatches(wordToMatch, cities) {
+  return cities.filter(place => {
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex)
+  });
+}
+
+//This is the regex to add commas to large numbers appropriately.
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+//
+function displayMatches() {
+  const matchArray = findMatches(this.value, cities);
+  //creates a new array using whatever is returned below
+  const html = matchArray.map(place => {
+    const regex = new RegExp(this.value, 'gi');
+    //replaces the text that was found via the search and replaces it with a highlighted version of it.
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    //replaces the text that was found via the search and replaces it with a highlighted version of it.
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    //returns the stuff that was found into a little box that goes under the search bar
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+    //join makes the array into a string
+  }).join('');
+  suggestions.innerHTML = html;
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
 </script>
   </body>
 </html>

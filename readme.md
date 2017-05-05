@@ -31,3 +31,7 @@ This one was quite difficult - a lot of new things learnt, from arrow functions 
 A nice little demonstration of flexbox, but will be hard to remember all the flexbox intricacies. Some incredibly useful things:
 1. ` .class > * ` which will target the children of the class.
 2. ` .class > *:first/last-child` which targets the first/last child element of the class
+
+### 6. Type Ahead
+
+This is super useful to know how to do, since it is used in websites all the time. RegExp is a very versatile tool for text too.
